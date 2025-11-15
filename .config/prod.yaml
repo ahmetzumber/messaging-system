@@ -1,0 +1,19 @@
+appName: "messaging-system"
+
+server:
+  port: 80
+
+client:
+  url: "https://webhook.site"
+  apiKey: "INS.me1x9uMcyYGlhKKQVPoc.bO3j9aZwRTOcA2Ywo"
+
+mongo:
+  uri: "mongodb://localhost:27017"
+  database: "message"
+  messageCollection: "messages"
+
+redis:
+  uri: "localhost:6379"
+  password: ""
+  db: 0
+  ttl: 24h

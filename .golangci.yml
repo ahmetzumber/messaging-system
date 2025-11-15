@@ -1,0 +1,36 @@
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  enable:
+    - govet
+    - gofmt
+    - gocyclo
+    - goimports
+    - errcheck
+    - revive
+    - staticcheck
+    - unused
+    - ineffassign
+
+linters-settings:
+  gocyclo:
+    min-complexity: 15
+
+  revive:
+    confidence: 0.8
+
+  gofmt:
+    simplify: true
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude:
+    - "should have comment"
+    - "cyclomatic complexity" # çok rahatsız ederse kapatabilirsin
+
+output:
+  format: colored-line-number
