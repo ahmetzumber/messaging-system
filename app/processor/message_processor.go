@@ -15,7 +15,9 @@ const (
 	StatusSent   = "sent"
 	StatusUnsent = "unsent"
 
-	MessageLimit = 2
+	MessageLimit    = 2
+	MessageInterval = 2
+	Day             = 24
 )
 
 type IMessageService interface {
@@ -60,7 +62,7 @@ func (p *MessageProcessor) Start(ctx context.Context) {
 
 	p.logger.Info("Starting message processor")
 	p.isRunning = true
-	p.ticker = time.NewTicker(2 * time.Minute)
+	p.ticker = time.NewTicker(MessageInterval * time.Minute)
 
 	go func() {
 		for {
@@ -137,7 +139,7 @@ func (p *MessageProcessor) processMessages(ctx context.Context) {
 			continue
 		}
 
-		if err := p.cache.Set(ctx, message.ID.Hex(), jsonValue, 24*time.Hour); err != nil {
+		if err := p.cache.Set(ctx, message.ID.Hex(), jsonValue, Day*time.Hour); err != nil {
 			p.logger.Error("failed to cache message", "messageId", message.ID, "error", err)
 			continue
 		}

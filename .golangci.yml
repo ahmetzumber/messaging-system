@@ -3,16 +3,36 @@ run:
   tests: true
 
 linters:
+  disable-all: true
   enable:
-    - govet
-    - gofmt
-    - gocyclo
-    - goimports
+    - dogsled
     - errcheck
+    - copyloopvar
+    - exhaustive
+    - goconst
+    - gocritic
+    - gofmt
+    - goimports
+    - mnd
+    - gocyclo
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - nolintlint
+    - nakedret
+    - prealloc
+    - predeclared
     - revive
     - staticcheck
+    - thelper
+    - tparallel
+    - typecheck
+    - unconvert
+    - unparam
     - unused
-    - ineffassign
+    - whitespace
 
 linters-settings:
   gocyclo:
@@ -30,7 +50,4 @@ issues:
   max-same-issues: 0
   exclude:
     - "should have comment"
-    - "cyclomatic complexity" # çok rahatsız ederse kapatabilirsin
-
-output:
-  format: colored-line-number
+    - "cyclomatic complexity"
