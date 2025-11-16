@@ -9,7 +9,6 @@ import (
 	dto "messaging-system/app/dto"
 	model "messaging-system/app/model"
 	reflect "reflect"
-	time "time"
 
 	gomock "github.com/golang/mock/gomock"
 	primitive "go.mongodb.org/mongo-driver/bson/primitive"
@@ -129,15 +128,15 @@ func (m *MockICacheService) EXPECT() *MockICacheServiceMockRecorder {
 }
 
 // Set mocks base method.
-func (m *MockICacheService) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
+func (m *MockICacheService) Set(ctx context.Context, key string, value interface{}) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Set", ctx, key, value, expiration)
+	ret := m.ctrl.Call(m, "Set", ctx, key, value)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Set indicates an expected call of Set.
-func (mr *MockICacheServiceMockRecorder) Set(ctx, key, value, expiration interface{}) *gomock.Call {
+func (mr *MockICacheServiceMockRecorder) Set(ctx, key, value interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockICacheService)(nil).Set), ctx, key, value, expiration)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockICacheService)(nil).Set), ctx, key, value)
 }

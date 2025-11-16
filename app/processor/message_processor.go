@@ -17,7 +17,6 @@ const (
 
 	MessageLimit    = 2
 	MessageInterval = 2
-	Day             = 24
 )
 
 type IMessageService interface {
@@ -30,7 +29,7 @@ type IClient interface {
 }
 
 type ICacheService interface {
-	Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error
+	Set(ctx context.Context, key string, value interface{}) error
 }
 
 type MessageProcessor struct {
@@ -139,7 +138,7 @@ func (p *MessageProcessor) processMessages(ctx context.Context) {
 			continue
 		}
 
-		if err := p.cache.Set(ctx, message.ID.Hex(), jsonValue, Day*time.Hour); err != nil {
+		if err := p.cache.Set(ctx, message.ID.Hex(), jsonValue); err != nil {
 			p.logger.Error("failed to cache message", "messageId", message.ID, "error", err)
 			continue
 		}

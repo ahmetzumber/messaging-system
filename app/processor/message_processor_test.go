@@ -121,7 +121,7 @@ func TestMessageProcessor_processMessages(t *testing.T) {
 
 		mockCache.
 			EXPECT().
-			Set(gomock.Any(), message.ID.Hex(), gomock.Any(), 24*time.Hour).
+			Set(gomock.Any(), message.ID.Hex(), gomock.Any()).
 			Return(nil)
 
 		processor.processMessages(ctx)
@@ -199,7 +199,7 @@ func TestMessageProcessor_processMessages(t *testing.T) {
 
 		mockCache.
 			EXPECT().
-			Set(gomock.Any(), message.ID.Hex(), gomock.Any(), 24*time.Hour).
+			Set(gomock.Any(), message.ID.Hex(), gomock.Any()).
 			Return(assert.AnError)
 
 		processor.processMessages(ctx)
