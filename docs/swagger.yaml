@@ -1,0 +1,109 @@
+basePath: /
+definitions:
+  handler.ErrorResponse:
+    properties:
+      error:
+        example: invalid limit parameter
+        type: string
+    type: object
+  handler.SuccessResponse:
+    properties:
+      message:
+        example: message processor started
+        type: string
+    type: object
+  model.Message:
+    properties:
+      content:
+        type: string
+      id:
+        type: string
+      phoneNumber:
+        type: string
+      sentAt:
+        type: string
+      status:
+        type: string
+      webhookMessageId:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: API for managing message processor and retrieving sent messages
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Messaging System API
+  version: "1.0"
+paths:
+  /processor/{action}:
+    post:
+      consumes:
+      - application/json
+      description: Starts or stops the message processor job based on the action parameter
+      parameters:
+      - description: Action to perform
+        enum:
+        - start
+        - stop
+        in: path
+        name: action
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Message processor started or stopped successfully
+          schema:
+            $ref: '#/definitions/handler.SuccessResponse'
+        "400":
+          description: Invalid action parameter
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Start or stop message processor
+      tags:
+      - processor
+  /processor/sent-messages:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of sent messages with an optional limit
+      parameters:
+      - default: 10
+        description: Number of messages to retrieve
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of sent messages
+          schema:
+            items:
+              $ref: '#/definitions/model.Message'
+            type: array
+        "400":
+          description: Invalid limit parameter
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: No unsent messages found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get sent messages
+      tags:
+      - processor
+schemes:
+- http
+- https
+swagger: "2.0"
