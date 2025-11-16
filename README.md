@@ -280,3 +280,9 @@ curl http://localhost:80/processor/sent-messages?limit=20
   "error": "error message details"
 }
 ```
+
+## Documentation
+Swagger documentation is auto-generated for all API endpoints. Access it at:
+```
+http://localhost:80/swagger/index.html
+```
